@@ -24,8 +24,8 @@ module Enumerable
  	end
 
  	def my_all?
-		self.length
-  	
+		self.my_each {|x| return false unless yield(x)}
+  	true
  	end
 
  	def my_any?
@@ -38,12 +38,23 @@ module Enumerable
  	end
 
  	def my_map
-  	
+    placeholder = []
+    for i in 0...self.size
+      placeholder << yield(self[i])
+    end
+    placeholder  	
  	end
 
  	def my_inject
-  	
+    placeholder = []
+    my_each {|a| placeholder = yield(placeholder, a)}
+    placeholder  	
  	end
+
+  def my_els
+    self.my_inject{|a, b| a * b}
+  end
+
 end
 
 test_array = [30, 4, 23, 666, 54]
