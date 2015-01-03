@@ -1,6 +1,12 @@
 module Enumerable
-	def my_each
-    # your code here
+	
+	def my_each # ran off with this code for here (http://www.eriktrautman.com/posts/ruby-explained-blocks-procs-and-lambdas-aka-closures) in order to get started
+		i = 0
+		while i < self.size
+			yield(self[i])  
+			i+=1      
+		end
+		self
   	end
 
   	def my_each_with_index
