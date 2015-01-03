@@ -2,19 +2,23 @@ def stock_picker(stock_prices)
 	day = 0
 	buy_day = 0
 	sell_day = 0
-	max_profit = 0
-	last_index = stock_prices.length - 1 
+	max_profit = -1.0./ 0 # ~= negative infinity in Ruby 2.1.4
 
-	(0..last_index).each do |buy_index|
-		stock_prices[1...-1].each do |sell_day|
-			current_profit = stock_prices[sell_day] - stock_prices[buy_index]
-			if current_profit > max_profit
-				max_profit = sell_day - buy_index
-				buy_day = buy_index
-			end
+	stock_prices.each_with_index do |buy_price, x|
+	stock_prices[x+1..-1].each_with_index do |sell_price, y|
+      	if(sell_price - buy_price > max_profit)
+			max_profit = sell_price - buy_price
+			buy_day = x
+			sell_day = y+x+1 
+		end
+
 		end		
+
 	end
-	puts "Buy when #{buy_day} and sell when #{sell_day} for a maximum profit of #{max_profit}."
+	puts stock_prices.to_s
+	puts "Buy on day #{buy_day.to_i } and sell on day #{sell_day.to_i } for a maximum profit of #{max_profit} (Days start at zero)."
 end
 
-stock_picker([17,3,6,9,15,8,6,1,10])
+data = [17,3,6,9,15,8,6,1,10]
+
+puts stock_picker(data)
